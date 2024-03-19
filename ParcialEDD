@@ -33,3 +33,111 @@ bool idRepetido(nodo *frente, int id) {
     }
     return false; 
 }
+int main(){ 
+    nodo *frente = NULL;
+    nodo *fin = NULL;
+    nodo *temp = NULL;
+    nodo* buscarProductoPoriD(nodo* frente, int id);
+    
+
+    int id;
+    string nombre;
+    int cantidad;
+    double precio;
+    
+    
+
+    int opc = 0;
+    int rpt = 0;
+    double valorTotalInventario = 0.0;
+    double promedioPrecios;
+    
+
+
+    do{
+
+    cout<<"----------------Menu--------------"<<endl;
+    cout<<"¿Que desea realizar?"<<endl;
+    cout<<""<<endl;
+    cout<<"1) Registrar producto"<<endl;
+    cout<<"2) Mostrar inventario"<<endl;
+    cout<<"3) Buscar producto"<<endl;
+    cout<<"4) Eliminar producto"<<endl;
+    cout<<"5) Calcular el valor total del inventario"<<endl;
+    cout<<"6) Calcular el promedio de los precios"<<endl;
+    cout<<"7) Vender productos"<<endl;
+    cout<<"8) Salir del sistema"<<endl;
+    cin>>rpt;
+
+
+    switch(rpt){
+
+        case 1:
+        
+     do {
+        cout << "Ingrese el id del producto: "<<endl;
+        cin >> id;
+
+        if (idRepetido(frente, id)) {
+            cout << "Error: El ID ingresado ya ha sido utilizado. Por favor, ingrese un nuevo ID." << endl;
+        }
+    } while (idRepetido(frente, id));
+     cout<<"Ingrese el nombre del producto: "<<endl;
+     cin>>nombre;
+     cout<<"Ingrese la cantidad del producto "<<nombre<<":"<<endl;
+     cin>>cantidad;
+     cout<<"Ingrese el precio del producto "<<nombre<<":"<<endl;
+     cin>>precio;
+
+     registrarProducto(frente, fin, id, nombre, cantidad, precio);
+     cout<<""<<endl;
+            break;
+
+        case 2: 
+        cout<<"\nMostrando los elementos de la cola: "<<endl;
+            mostrarInventario(frente, fin);
+            break;
+        
+        case 3: 
+             int idBuscar;
+             cout << "Ingrese el ID del producto que desea buscar: ";
+             cin >> idBuscar;
+             buscarProductoPorID(frente, idBuscar);
+             break;
+
+        case 4: 
+             int idEliminar;
+             cout << "Ingrese el ID del producto que desea eliminar: ";
+             cin >> idEliminar;
+             eliminarProducto(frente, fin, idEliminar);
+
+             break;
+
+        case 5:
+        
+        valorTotalInventario = calcularValorTotalInventario(frente);
+        cout << "El valor total del inventario es: $" << valorTotalInventario << endl;
+        break;
+
+        case 6:
+        
+        promedioPrecios = calcularPromedioPrecios(frente);
+        cout << "El precio promedio por unidad de todos los productos en el inventario es: $" << promedioPrecios << endl;
+         break;
+
+        case 7:
+            venderProducto(frente, fin);
+            break;
+
+        case 8: 
+        cout<<"Final\n"<<endl;
+            break;
+
+                default:
+                 cout<<"Opcion incorrecta, ingrese nuevamente otra opcion."<<endl;
+    }
+
+    }while(rpt != 8);
+getch();
+    return 0;
+}
