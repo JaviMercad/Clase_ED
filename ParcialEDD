@@ -1,1 +1,35 @@
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
 
+
+using namespace std;
+
+struct nodo{
+    int id;
+    string nombre;
+    int cantidad;
+    double precio;
+    nodo *sig;
+
+};
+
+// prototipos de las funciones
+void registrarProducto(nodo *&, nodo *&, int, string, int, double);
+bool cola_vacia(nodo *);
+void mostrarInventario(nodo *, nodo *);
+void buscarProductoPorID(nodo *frente, int id);
+void eliminarProducto(nodo *&frente, nodo *&fin, int id);
+double calcularValorTotalInventario(nodo *frente);
+double calcularPromedioPrecios(nodo *frente);
+void venderProducto(nodo*& frente, nodo*& fin);
+bool idRepetido(nodo *frente, int id) {
+    nodo *temp = frente;
+    while (temp != NULL) {
+        if (temp->id == id) {
+            return true; 
+        }
+        temp = temp->sig;
+    }
+    return false; 
+}
