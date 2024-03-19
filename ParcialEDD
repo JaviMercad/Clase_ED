@@ -141,3 +141,138 @@ int main(){
 getch();
     return 0;
 }
+
+void registrarProducto(nodo *&frente, nodo *&fin, int i, string n, int c, double p){
+    nodo *nuevo_nodo = new nodo();
+  
+    
+    nuevo_nodo->id = i;
+    nuevo_nodo->nombre = n;
+    nuevo_nodo->cantidad = c;
+    nuevo_nodo->precio = p;
+    nuevo_nodo->sig = NULL;
+   
+
+    if(cola_vacia(frente)){
+        frente = nuevo_nodo;
+    }else{
+        fin->sig = nuevo_nodo;
+    }
+
+    fin = nuevo_nodo;
+
+    cout<<"Producto "<<n<<" agregado exitosamente"<<endl;
+}
+bool cola_vacia(nodo *frente){
+    return (frente == NULL)? true : false;
+}
+void mostrarInventario(nodo *frente, nodo *fin) {
+    nodo *temp = frente;
+
+    while (temp != NULL) {
+        cout << "ID: " << temp->id << endl;
+        cout << "Nombre: " << temp->nombre << endl;
+        cout << "Cantidad: " << temp->cantidad << endl;
+        cout << "Precio por unidad: " << temp->precio << endl;
+        cout << endl;
+
+        temp = temp->sig;
+    }
+}
+void buscarProductoPorID(nodo *frente, int id) {
+    nodo *temp = frente;
+    bool encontrado = false;
+
+    
+    while (temp != NULL) {
+        if (temp->id == id) {
+            encontrado = true;
+            cout << "Informacion del producto con ID " << id << ":" << endl;
+            cout << "Nombre: " << temp->nombre << endl;
+            cout << "Cantidad: " << temp->cantidad << endl;
+            cout << "Precio por unidad: " << temp->precio << endl;
+            break;  
+        }
+        temp = temp->sig;
+    }
+
+    
+    if (!encontrado) {
+        cout << "No se encontro ningún producto con el ID proporcionado." << endl;
+    }
+}
+void eliminarProducto(nodo *&frente, nodo *&fin, int id) {
+    if (frente == NULL) {
+        cout << "El inventario está vacío, no se puede eliminar ningún producto." << endl;
+        return;
+    }
+
+    nodo *temp = frente;
+    nodo *anterior = NULL;
+
+    
+    while (temp != NULL && temp->id != id) {
+        anterior = temp;
+        temp = temp->sig;
+    }
+
+    
+    if (temp == NULL) {
+        cout << "No se encontro ningun producto con el ID proporcionado." << endl;
+        return;
+    }
+
+    
+    if (temp == frente) {
+        frente = frente->sig;
+    } else {
+        anterior->sig = temp->sig;
+    }
+
+    
+    if (temp == fin) {
+        fin = anterior;
+    }
+
+    
+    delete temp;
+
+    cout << "Producto eliminado del inventario." << endl;
+}
+double calcularValorTotalInventario(nodo *frente) {
+    double valorTotal = 0.0;
+    nodo *temp = frente;
+    while (temp != NULL) {
+        valorTotal += temp->cantidad * temp->precio;
+        temp = temp->sig;
+    }
+
+    return valorTotal;
+}
+double calcularPromedioPrecios(nodo *frente) {
+    double sumaPrecios = 0.0;
+    int totalProductos = 0;
+
+    
+    nodo *temp = frente;
+    while (temp != NULL) {
+        sumaPrecios += temp->precio;
+        totalProductos++;
+        temp = temp->sig;
+    }
+
+    
+    double promedioPrecios = (totalProductos > 0) ? (sumaPrecios / totalProductos) : 0.0;
+
+    return promedioPrecios;
+}
+nodo* buscarProductoPoriD(nodo* frente, int id) {
+    nodo* temp = frente;
+    while (temp != NULL) {
+        if (temp->id == id) {
+            return temp; 
+        }
+        temp = temp->sig;
+    }
+    return NULL; 
+}
