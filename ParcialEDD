@@ -276,3 +276,35 @@ nodo* buscarProductoPoriD(nodo* frente, int id) {
     }
     return NULL; 
 }
+void venderProducto(nodo*& frente, nodo*& fin) {
+    int idVenta;
+    cout << "Ingrese el ID del producto a vender: ";
+    cin >> idVenta;
+
+    
+    nodo *productoVenta = buscarProductoPoriD(frente, idVenta);
+    if (productoVenta != NULL) {
+        cout << "Información del producto:\n";
+        cout << "ID: " << productoVenta->id << endl;
+        cout << "Nombre: " << productoVenta->nombre << endl;
+        cout << "Cantidad en inventario: " << productoVenta->cantidad << endl;
+        cout << "Precio por unidad: $" << productoVenta->precio << endl;
+
+        int cantidadVenta;
+        cout << "Ingrese la cantidad de unidades que desea comprar: ";
+        cin >> cantidadVenta;
+
+        // Verificar si hay existencias suficientes
+        if (cantidadVenta <= productoVenta->cantidad) {
+            // Calcular el total a pagar y descontar la cantidad vendida del inventario
+            double totalPagar = cantidadVenta * productoVenta->precio;
+            productoVenta->cantidad -= cantidadVenta;
+
+            cout << "Total a pagar: $" << totalPagar << endl;
+        } else {
+            cout << "No hay suficientes existencias de este producto. Venta cancelada." << endl;
+        }
+    } else {
+        cout << "Producto no encontrado. Venta cancelada." << endl;
+    }
+}
