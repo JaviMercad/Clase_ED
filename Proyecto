@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct nodo(){
+	int codigo = 0;
+	int año = 0;
+	int mes = 0;
+	int dia = 0 ;
+	string nombre = ""; 
+	string apellido = "";
+	
+};
+
+int main(){
+
+	do{
+		cout<<"---------------MENU----------------"<<endl;
+		cout<<"1) registrar"<<endl;
+		cout<<"2) Mostrar"<<endl;
+		cout<<"3) Eliminar"<<<endl;
+		
+	}while();
+	
+	
+
+
+}
