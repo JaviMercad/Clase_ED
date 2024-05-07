@@ -7,7 +7,7 @@ using namespace std;
 struct Estudiante {
     char nombre[40];
     char apellido[40];
-    int codigo; // Cambiado a entero
+    int codigo; 
     int fechaDeNacimiento;
     Estudiante *izquierda;
     Estudiante *derecha;
