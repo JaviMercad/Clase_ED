@@ -2,6 +2,7 @@
 #include <cstring> // Para strcmp
 #include <limits> // Para limpiar el buffer de entrada
 using namespace std;
+//Jhon steven Montaño y Javier Mercado
 
 struct Estudiante {
     char nombre[40];
