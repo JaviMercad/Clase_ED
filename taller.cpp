@@ -139,5 +139,5 @@ int main() {
         }
     } while (opcs != 4);
 
-    return 0;
+    retur 0;
 }
