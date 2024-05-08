@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+//Javier Mercado y Jhon Montaño
+
 using namespace std;
 
 struct nodo {
@@ -139,5 +141,5 @@ int main() {
         }
     } while (opcs != 4);
 
-    retur 0;
+    return 0;
 }
