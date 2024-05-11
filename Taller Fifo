@@ -1,0 +1,131 @@
+#include <iostream>
+#include <string>
+using namespace std;
+//Jhon Steven Montaño y Javier Mercado 
+
+struct Vehiculo {
+    string tipo;
+    string placa;
+};
+
+// Constantes globales
+const int CAPACIDAD_PARQUEADERO = 10;
+const int COSTO_PARQUEO_MOTO = 500;
+const int COSTO_PARQUEO_CARRO = 1000;
+const int COSTO_MOVIMIENTO_MOTO = 50;
+const int COSTO_MOVIMIENTO_CARRO = 100;
+
+Vehiculo vehiculos[CAPACIDAD_PARQUEADERO];
+int final = 0; 
+
+void convertirMayusculas(string& texto) {
+    for (char& c : texto) {
+        c = toupper(c);
+    }
+}
+
+void registrarVehiculo() {
+    Vehiculo vehiculo;
+    cout << "Ingrese el tipo de vehiculo (Carro/Moto): ";
+    cin >> vehiculo.tipo;
+    cout << "Ingrese la placa del vehiculo: ";
+    cin >> vehiculo.placa;
+    convertirMayusculas(vehiculo.placa);
+
+    for (int i = 0; i < final; ++i) {
+        if (vehiculos[i].placa == vehiculo.placa) {
+            cout << "La placa ingresada ya esta registrada en el parqueadero." << endl;
+            return;
+        }
+    }
+
+    if (final < CAPACIDAD_PARQUEADERO) {
+        vehiculos[final++] = vehiculo;
+        cout << "Vehiculo registrado exitosamente." << endl;
+    } else {
+        cout << "El parqueadero esta lleno." << endl;
+    }
+}
+
+void eliminarVehiculo() {
+    string placa, tipo;
+    cout << "Ingrese el tipo de vehiculo a eliminar (Carro/Moto): ";
+    cin >> tipo;
+    cout << "Ingrese la placa del vehiculo a eliminar: ";
+    cin >> placa;
+    convertirMayusculas(placa);
+
+    for (int i = 0; i < final; ++i) {
+        if (vehiculos[i].placa == placa && vehiculos[i].tipo == tipo) {
+            int movimientos = final - i - 1;
+            int costoTotal = movimientos * ((tipo == "Moto") ? COSTO_MOVIMIENTO_MOTO : COSTO_MOVIMIENTO_CARRO) + ((tipo == "Moto") ? COSTO_PARQUEO_MOTO : COSTO_PARQUEO_CARRO);
+            cout << "Vehiculo con placa " << vehiculos[i].placa << " eliminado del parqueadero." << endl;
+            cout << "Se realizaron " << movimientos << " movimientos adicionales para sacar el vehiculo." << endl;
+            cout << "Costo total: " << costoTotal << endl;
+            for (int j = i; j < final - 1; ++j) {
+                vehiculos[j] = vehiculos[j + 1];
+            }
+            --final;
+            return;
+        }
+    }
+    cout << "No se encontro ningun vehiculo con la placa y tipo especificados." << endl;
+}
+
+
+void mostrarParqueaderoMoto() {
+    cout << "Parqueadero de motos:" << endl;
+    for (int i = final - 1; i >= 0; --i) {
+        if (vehiculos[i].tipo == "Moto") {
+            cout << "Placa: " << vehiculos[i].placa << endl;
+        }
+    }
+}
+
+void mostrarParqueaderoCarro() {
+    cout << "Parqueadero de carros:" << endl;
+    for (int i = final - 1; i >= 0; --i) {
+        if (vehiculos[i].tipo == "Carro") {
+            cout << "Placa: " << vehiculos[i].placa << endl;
+        }
+    }
+}
+
+int main() {
+    char opcion;
+    do {
+        cout << "\n--- Menu ---" << endl;
+        cout << "1. Registrar vehiculo" << endl;
+        cout << "2. Eliminar vehiculo y calcular costo" << endl;
+        cout << "3. Mostrar parqueadero de motos" << endl;
+        cout << "4. Mostrar parqueadero de carros" << endl;
+        cout << "5. Salir" << endl;
+        cout << "Ingrese su opcion: ";
+        cin >> opcion;
+
+        switch(opcion) {
+            case '1': {
+                registrarVehiculo();
+                break;
+            }
+            case '2': {
+                eliminarVehiculo();
+                break;
+            }
+            case '3':
+                mostrarParqueaderoMoto();
+                break;
+            case '4':
+                mostrarParqueaderoCarro();
+                break;
+            case '5':
+                cout << "Saliendo del programa." << endl;
+                break;
+            default:
+                cout << "Opcion no valida. Por favor, intente de nuevo." << endl;
+                break;
+        }
+    } while (opcion != '5');
+
+    return 0;
+}
