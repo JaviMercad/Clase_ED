@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib> 
-
+// Leonardo Mercado y Steven Montaño
 using namespace std;
 
 struct Pasajero {
